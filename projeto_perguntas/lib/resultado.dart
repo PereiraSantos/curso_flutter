@@ -11,7 +11,7 @@ class Resultado extends StatelessWidget {
     if(pontuacao! < 8){
       return "Parabens";
     }else if(pontuacao! < 12){
-      return "Voce é bom";
+      return "Você é bom";
     }else if(pontuacao! < 16){
       return 'Impresionante';
     }else{

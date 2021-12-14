@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_perguntas/questionario.dart';
 import 'package:projeto_perguntas/resultado.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
 
 void main() {
   runApp(const MyApp());
@@ -13,17 +15,18 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-
 class _MyAppState extends State<MyApp> {
   var _perguntasSelecionada = 0;
   var _pontuacaoTotal = 0;
+
+
 
   final List<Map<String, Object>> _perguntas = [
     {
       'texto': 'Qual é a sua cor favorita?',
       'resposta': [
         {'texto':'Preto','pontuacao': 10},
-        {'texto':'Vermehlho','pontuacao': 8},
+        {'texto':'Vermelho','pontuacao': 8},
         {'texto':'Verde','pontuacao': 6},
         {'texto':'Branco','pontuacao': 5},
       ]
@@ -37,14 +40,23 @@ class _MyAppState extends State<MyApp> {
       ]
     },
     {
-      'texto': 'Qual se intrutor favorito?',
+      'texto': 'Qual seu instrutor favorito?',
       'resposta': [
         {'texto':'Maria','pontuacao': 9},
         {'texto':'João','pontuacao': 7},
         {'texto':'Leo','pontuacao': 5},
         {'texto':'Pedro','pontuacao': 3},
     ]
-    }
+    },
+    {
+      'texto': 'Qual é sua linguagem favorita?',
+      'resposta': [
+        {'texto':'Java','pontuacao': 7},
+        {'texto':'Flutter','pontuacao': 9},
+        {'texto':'Angular','pontuacao': 6},
+        {'texto':'Type Script','pontuacao': 1},
+      ]
+    },
   ];
 
   bool get temPerguntaSelecionada {

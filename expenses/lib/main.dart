@@ -1,13 +1,11 @@
 import 'dart:math';
-
 import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/trasnsaction_list.dart';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 
-
-main()=> runApp(ExpensesApp());
+main()=> runApp(const ExpensesApp());
 
 class ExpensesApp  extends StatelessWidget {
   const ExpensesApp({Key? key}) : super(key: key);
@@ -15,6 +13,7 @@ class ExpensesApp  extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: MyHomePage(),
         theme: ThemeData(
         fontFamily: 'Quicksand',
@@ -22,9 +21,11 @@ class ExpensesApp  extends StatelessWidget {
             headline1: const TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 20,
-              fontWeight: FontWeight.bold
-            )
-          )), colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(secondary: Colors.amber)
+              fontWeight: FontWeight.bold,
+            ),
+            button: const TextStyle(color: Colors.white,
+            fontWeight: FontWeight.bold)
+          )), colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: Colors.amber)
       )
     );
   }
@@ -38,11 +39,8 @@ class MyHomePage  extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  final _transactions = [
-    Transaction(id: "t0", title: "novo tenis de corrida", value: 310.76, date: DateTime.now().subtract(const Duration(days: 3))),
-    Transaction(id: "t1", title: "conta de luz", value: 211.03, date: DateTime.now()..subtract(const Duration(days: 4))),
-    Transaction(id: "t2", title: "conta de lagua", value: 301.03, date: DateTime.now()..subtract(const Duration(days: 5)))
-  ];
+  final List<Transaction>_transactions = [];
+  bool showCart = false;
 
   List<Transaction> get _recentTransaction{
     return _transactions.where((element) {
@@ -50,12 +48,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value){
+  _addTransaction(String title, double value, DateTime date){
     final newTransaction = Transaction(
         id: Random().nextDouble().toString(),
         title: title,
         value: value,
-        date: DateTime.now()
+        date: date
     );
 
     setState(() {
@@ -65,6 +63,13 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
 
   }
+
+  _deleteTransaction(String id){
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
+  }
+
   void _openTransactionFormModal(BuildContext context){
     showModalBottomSheet(context: context, builder: (_){
       return TransactionForm(onSubmit: _addTransaction);
@@ -73,30 +78,51 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text("Despesas Pessoais"),
+
+    final mediaQuery = MediaQuery.of(context);
+    bool isLandscape = mediaQuery.orientation == Orientation.landscape;
+
+    final appBar = AppBar(
+      title: Text("Despesas Pessoais",
+        style: TextStyle(
+            fontSize:  20 * mediaQuery.textScaleFactor,
+        ),
+      ),
       actions:  [
-         IconButton(
-             onPressed: () => _openTransactionFormModal(context),
-             icon: const Icon(Icons.add))
+        isLandscape ?
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  showCart = !showCart;
+                });
+              },
+              icon: Icon(showCart ? Icons.list : Icons.pie_chart),
+          ) : const SizedBox(),
+        IconButton(
+            onPressed: () => _openTransactionFormModal(context),
+            icon: const Icon( Icons.add)),
       ],
-    ),
+    );
+
+    final availableHeight = MediaQuery.of(context).size.height
+        - appBar.preferredSize.height - mediaQuery.padding.top;
+
+  return Scaffold(
+    appBar: appBar,
     body: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children:  [
+        children: [
+          if(showCart || !isLandscape)
             SizedBox(
-            width: double.infinity,
-            child:  Card(
-              color: Colors.blue,
-              elevation: 5,
-              child: Chart(recentTransaction: _recentTransaction),
+                height: availableHeight * (isLandscape ? 0.70 : 0.30),
+                child: Chart(recentTransaction: _recentTransaction),
             ),
+          if(!showCart || !isLandscape)
+            SizedBox(
+              height: availableHeight * (isLandscape ? 1 : 0.70),
+                child: TransactionList(transactions: _transactions,onRemove: _deleteTransaction),
           ),
-
-          TransactionList(transactions: _transactions),
-
         ],
       ),
     ),

@@ -11,6 +11,7 @@ class MealItem extends StatelessWidget {
   void _selectMeal(BuildContext context){
    Navigator.of(context).pushNamed(
     AppRoutes.MEALS_DETAIL, 
+    // ignore: avoid_print
     arguments: meal).then((value) => print(value));
   }
  

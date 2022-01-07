@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-
 import '../models/category.dart';
 import '../models/meal.dart';
 
+
+// ignore: non_constant_identifier_names
 final DUMMY_CATEGORIES = [
   Category(
     id: 'c1',
@@ -58,8 +58,10 @@ final DUMMY_CATEGORIES = [
   ),
 ];
 
+
+// ignore: non_constant_identifier_names
 final DUMMY_MEALS =  [
-  Meal(
+  const Meal(
     id: 'm1',
     categories: ['c1', 'c2'],
     title: 'Spaghetti with Tomato Sauce',
@@ -90,7 +92,7 @@ final DUMMY_MEALS =  [
     isVegetarian: true,
     isLactoseFree: true,
   ),
-  Meal(
+  const Meal(
     id: 'm2',
     categories: ['c2'],
     title: 'Toast Hawaii',
@@ -116,7 +118,7 @@ final DUMMY_MEALS =  [
     isVegetarian: false,
     isLactoseFree: false,
   ),
-  Meal(
+  const Meal(
     id: 'm3',
     categories: ['c2', 'c3'],
     title: 'Classic Hamburger',
@@ -145,7 +147,7 @@ final DUMMY_MEALS =  [
     isVegetarian: false,
     isLactoseFree: true,
   ),
-  Meal(
+  const Meal(
     id: 'm4',
     categories: ['c4'],
     title: 'Wiener Schnitzel',
@@ -178,7 +180,7 @@ final DUMMY_MEALS =  [
     isVegetarian: false,
     isLactoseFree: false,
   ),
-  Meal(
+  const Meal(
     id: 'm5',
     categories: ['c2', 'c5', 'c10'],
     title: 'Salad with Smoked Salmon',
@@ -210,7 +212,7 @@ final DUMMY_MEALS =  [
     isVegetarian: true,
     isLactoseFree: true,
   ),
-  Meal(
+  const Meal(
     id: 'm6',
     categories: ['c6', 'c10'],
     title: 'Delicious Orange Mousse',
@@ -243,7 +245,7 @@ final DUMMY_MEALS =  [
     isVegetarian: true,
     isLactoseFree: false,
   ),
-  Meal(
+  const Meal(
     id: 'm7',
     categories: ['c7'],
     title: 'Pancakes',
@@ -272,7 +274,7 @@ final DUMMY_MEALS =  [
     isVegetarian: true,
     isLactoseFree: false,
   ),
-  Meal(
+  const Meal(
     id: 'm8',
     categories: ['c8'],
     title: 'Creamy Indian Chicken Curry',
@@ -303,7 +305,7 @@ final DUMMY_MEALS =  [
     isVegetarian: false,
     isLactoseFree: true,
   ),
-  Meal(
+  const Meal(
     id: 'm9',
     categories: ['c9'],
     title: 'Chocolate Souffle',
@@ -350,7 +352,7 @@ final DUMMY_MEALS =  [
     isVegetarian: true,
     isLactoseFree: false,
   ),
-  Meal(
+  const Meal(
     id: 'm10',
     categories: ['c2', 'c5', 'c10'],
     title: 'Asparagus Salad with Cherry Tomatoes',

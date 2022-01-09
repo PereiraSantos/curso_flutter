@@ -19,11 +19,17 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+  Sesttings sesttings = Sesttings();
+
  List<Meal> _availableMeals = DUMMY_MEALS;
+
+ final List <Meal> _favoriteMeals = [];
 
 void _filterMeals(Sesttings sesttings){
   
   setState(() {
+    this.sesttings = sesttings;
+
     _availableMeals = DUMMY_MEALS.where((meals){
       final filterClutter = sesttings.isGlutenFree! && !meals.isGlutenFree;
       final filterlactose = sesttings.isLactoseFree! && !meals.isLactoseFree;
@@ -34,6 +40,17 @@ void _filterMeals(Sesttings sesttings){
 
     }).toList();
   });
+}
+
+void _toggleFavorite(Meal meal){
+    _favoriteMeals.contains(meal) 
+    ? _favoriteMeals.remove(meal)
+    : _favoriteMeals.add(meal);
+  
+}
+
+bool _isFavorite(Meal meal){
+  return _favoriteMeals.contains(meal);
 }
 
   @override
@@ -54,10 +71,10 @@ void _filterMeals(Sesttings sesttings){
       ),
   
       routes: {
-        AppRoutes.HOME: (ctx) => const TabScreen(),
+        AppRoutes.HOME: (ctx) =>  TabScreen(favoriteMeal: _favoriteMeals),
         AppRoutes.CATEGORIRY_MEALS: (ctx) =>  CategoryMealsScreen(meals: _availableMeals),
-        AppRoutes.MEALS_DETAIL: (ctx) => const MealDetailScreen(),
-        AppRoutes.SETTINGS: (ctx) =>  SettingsScreen(onsSesttingChanged: _filterMeals)
+        AppRoutes.MEALS_DETAIL: (ctx) =>  MealDetailScreen(onToggleFavorite: _toggleFavorite, isFavorite: _isFavorite),
+        AppRoutes.SETTINGS: (ctx) =>  SettingsScreen(onsSesttingChanged: _filterMeals, sesttings: sesttings)
       },
     );
   }

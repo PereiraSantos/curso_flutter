@@ -5,8 +5,9 @@ import 'package:meals/models/sesttings.dart';
 class SettingsScreen extends StatefulWidget {
 
   final Function(Sesttings)? onsSesttingChanged;
+  final Sesttings? sesttings;
 
-  const SettingsScreen({ Key? key, this.onsSesttingChanged }) : super(key: key);
+  const SettingsScreen({ Key? key, this.onsSesttingChanged, this.sesttings }) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -14,7 +15,13 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
 
-var sesting = Sesttings();
+late Sesttings sesttings;
+
+@override
+void initState(){
+  super.initState();
+  sesttings = widget.sesttings!;
+}
 
   Widget _createSwitch(String title, String subTitile, bool value, Function(bool) onChanged){
     return SwitchListTile.adaptive(
@@ -23,7 +30,7 @@ var sesting = Sesttings();
         value: value,
         onChanged: (value){
           onChanged(value);
-          widget.onsSesttingChanged!(sesting);
+          widget.onsSesttingChanged!(sesttings);
         }
     );
   }
@@ -40,18 +47,18 @@ var sesting = Sesttings();
         ),
         Expanded(child: ListView(
           children: [
-            _createSwitch("Sem gluttem", "So exibe refeiçãoes sem glutem", sesting.isGlutenFree!, 
-            (value)=> setState(() => sesting.isGlutenFree = value)),
+            _createSwitch("Sem gluttem", "So exibe refeiçãoes sem glutem", sesttings.isGlutenFree!, 
+            (value)=> setState(() => sesttings.isGlutenFree = value)),
 
-             _createSwitch("Sem Lactose", "So exibe refeiçãoes se lactose", sesting.isLactoseFree!, 
-            (value)=> setState(() => sesting.isLactoseFree = value)),
+             _createSwitch("Sem Lactose", "So exibe refeiçãoes se lactose", sesttings.isLactoseFree!, 
+            (value)=> setState(() => sesttings.isLactoseFree = value)),
 
 
-             _createSwitch("Vegana", "So exibe refeiçãoes begna", sesting.isVegan!, 
-            (value)=> setState(() => sesting.isVegan = value)),
+             _createSwitch("Vegana", "So exibe refeiçãoes begna", sesttings.isVegan!, 
+            (value)=> setState(() => sesttings.isVegan = value)),
 
-             _createSwitch("Vegetariana ", "So exibe refeiçãoes Vegetariana", sesting.isVegetariam!, 
-            (value)=> setState(() => sesting.isVegetariam = value))
+             _createSwitch("Vegetariana ", "So exibe refeiçãoes Vegetariana", sesttings.isVegetariam!, 
+            (value)=> setState(() => sesttings.isVegetariam = value))
           ],
         ))
       ],

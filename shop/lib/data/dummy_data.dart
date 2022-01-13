@@ -15,7 +15,7 @@ final dummyProducts = [
       description: 'A nice pair of trousers.',
       price: 59.99,
       imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
+          'https://st2.depositphotos.com/1027775/9252/i/950/depositphotos_92526940-stock-photo-blue-denim-jeans.jpg',
     ),
     Product(
       id: 'p3',
@@ -31,6 +31,22 @@ final dummyProducts = [
       description: 'Prepare any meal you want.',
       price: 49.99,
       imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+          'https://image.freepik.com/fotos-gratis/panela-de-aco-inoxidavel-isolada-no-fundo-branco_93675-64916.jpg',
+    ),
+    Product(
+      id: 'p5',
+      title: 'A Pan',
+      description: 'Prepare any meal you want.',
+      price: 59.99,
+      imageUrl:
+          'https://image.freepik.com/fotos-gratis/panela-de-aco-inoxidavel-isolada-no-fundo-branco_93675-64916.jpg',
+    ),
+    Product(
+      id: 'p6',
+      title: 'A Pan red',
+      description: 'Prepare any meal you want.',
+      price: 20.99,
+      imageUrl:
+          'https://thumbs.dreamstime.com/z/antistress-um-popular-brinquedo-de-al%C3%ADvio-do-estresse-bandeira-cora%C3%A7%C3%A3o-lgbt-apertar-o-dedo-no-silicone-pop-221340175.jpg',
     ),
   ];

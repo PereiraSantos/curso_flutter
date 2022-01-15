@@ -29,19 +29,24 @@ class ProductItem extends StatelessWidget {
           ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
+          leading: Consumer<Product>(
+            builder: (context, product, _)=> 
+          IconButton(
             onPressed: () {
               product.toogleFavorite();
             },
             icon:  Icon(product.isFavorite! ?  Icons.favorite : Icons.favorite_border, color: Theme.of(context).colorScheme.secondary),
           ),
-          title: Text(product.name, style: const TextStyle(fontFamily: 'Lato'), textAlign: TextAlign.center),
-          trailing: IconButton(
-            onPressed: (){
-              cart.addItems(product);
-            }, 
-            icon: const Icon(Icons.shopping_cart)),
           ),
+          title: Text(product.name, style: const TextStyle(fontFamily: 'Lato'), textAlign: TextAlign.center),
+          trailing: 
+            IconButton(
+              onPressed: (){
+                cart.addItems(product);
+              }, 
+              icon: const Icon(Icons.shopping_cart)),
+          ),
+          
       ),
     );
   }

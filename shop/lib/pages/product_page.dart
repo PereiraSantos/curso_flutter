@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/components/app_drawer.dart';
+import 'package:shop/components/product_item.dart';
 import 'package:shop/models/product_list.dart';
+import 'package:shop/utils/app_routes.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({ Key? key }) : super(key: key);
@@ -12,14 +14,27 @@ class ProductPage extends StatelessWidget {
     final ProductList productList = Provider.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Gerenciar produtos"),
+      appBar: AppBar(title: const Text("Gerenciar produtos",),
+      actions: [
+        IconButton(
+          onPressed: (){
+            Navigator.of(context).pushNamed(AppRoutes.PRODUCT_FORM);
+          }, 
+        icon: const Icon(Icons.add),
+        ),
+      ],
     ),
     drawer: const AppDrawer(),
     body: Padding(padding: const EdgeInsets.all(8),
     child: ListView.builder(
       itemCount: 4,
       itemBuilder: (context, index){
-        return Text(productList.items[index].name);
+        return Column(
+          children: [
+            ProductItem(product: productList.items[index]),
+            const Divider()
+          ],
+        );
       }),),
     );
   }
